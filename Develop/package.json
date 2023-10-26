@@ -1,7 +1,7 @@
 {
-  "name": "static-site",
+  "name": "README Generator",
   "version": "1.0.0",
-  "description": "",
+  "description": "Creates a list of prompts to generate a README.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -9,6 +9,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "inquirer": "^6.3.1"
+    "inquirer": "^7.2.0"
   }
 }
