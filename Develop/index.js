@@ -1,65 +1,57 @@
-// need the const fs variable here
 const fs = require("fs");
-
-// need inquirer variable here
 const inquirer = require("inquirer");
 
-// need a markdown js file here
+// Markdown file
 const generateMarkdown = require("./utils/generateMarkdown");
 
-
-// License function and  if/else section here 
+// License options 
 function getLicense(value) {
-    if (value === "GNU AGPLv3") {
-        return "[![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)";
-    } else if (value === "GNU GPLv3") {
-        return "[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)";
-    } else if (value === "GNU LGPLv3") {
-        return "[![License: LGPL v3](https://img.shields.io/badge/License-LGPL%20v3-blue.svg)](https://www.gnu.org/licenses/lgpl-3.0)";
+    if (value === "AFL 3.0") {
+        return "[![License: AFL 3.0](https://img.shields.io/badge/AFL%203.0-purple)]";
     } else if (value === "Apache 2.0") {
-        return "[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)";
-    } else if (value === "Boost Software 1.0") {
-        return "[![License](https://img.shields.io/badge/License-Boost%201.0-lightblue.svg)](https://www.boost.org/LICENSE_1_0.txt)";
+        return "[![License: Apache 2.0](https://img.shields.io/badge/Apache%202.0-orange)]";
+    } else if (value === "BSD Zero-Clause") {
+        return "[![License: 0BSD](https://img.shields.io/badge/BSD%20Zero-Clause-red)]";
+    } else if (value === "Do WTF You Want To PL") {
+        return "[![License: WTFPL](https://img.shields.io/badge/WTF%20PL-gold)]";
+    } else if (value === "GNU GPL v3.0") {
+        return "[![License: GPL v3.0](https://img.shields.io/badge/GNU%20GPL%20v3.0-silver)]";
     } else if (value === "MIT") {
-        return "[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)";
-    } else {
-        return "[![License: MPL 2.0](https://img.shields.io/badge/License-MPL%202.0-brightgreen.svg)](https://opensource.org/licenses/MPL-2.0)";
+        return "[![License: MIT](https://img.shields.io/badge/MIT-maroon)]";
     }
 }
-
 
 function validateInput(value) {
     if (value != "") {
         return true;
     } else {
-        return "Please answer the question with some kind on input.";
+        return "Invalid input! Please enter a value.";
     }
 }
 
-
 const questions = [
-    // Question for the Title
+    // Title
     {
         type: "input",
         name: "title",
-        message: "What is the title of your project?",
+        message: "Please enter the title of your project?",
         validate: validateInput,
     },
-    // Question for the project Description
+    // Description
     {
         type: "input",
         name: "description",
-        message: "Please enter a description of your project.",
+        message: "Please enter a description for your project.",
         validate: validateInput,
     },
 
-    // Table of Contents, andling this in the markdown.js
+    // Table of Contents - Markdown.js
 
-    // Question for Installation
+    // Installation
     {
         type: "input",
         name: "installation",
-        message: "Please enter an explanation how to install the software, or commands for the program.",
+        message: "Please enter how to install the software.",
         validate: validateInput,
     },
 
@@ -67,28 +59,27 @@ const questions = [
     {
         type: "input",
         name: "usage",
-        message: "Please describe how we can use this program/project.",
+        message: "Please describe how users can use your project.",
         validate: validateInput,
     },
 
-    // Question for License 
+    // License 
     {
         type: "list",
         name: "license",
         message: "Please select a license for this project.",
         choices: [
-            "GNU AGPLv3",
-            "GNU GPLv3",
-            "GNU LGPLv3",
+            "AFL 3.0",
             "Apache 2.0",
-            "Boost Software 1.0",
+            "BSD Zero-Clause",
+            "Do WTF You Want To PL",
+            "GNU GPL v3.0",
             "MIT",
-            "Mozilla",
         ],
         validate: validateInput,
     },
 
-    // Question for Contributing 
+    // Contributing 
     {
         type: "input",
         name: "contributing",
@@ -96,39 +87,38 @@ const questions = [
         validate: validateInput,
     },
 
-    // Question for Tests
+    // Tests
     {
         type: "input",
         name: "tests",
-        message: "Please enter any testing instructions you would like to provide for this project.",
+        message: "Please enter test instructions for your project.",
         validate: validateInput,
     },
 
-    // QUESTIONS section -- github 
+    // Github username 
     {
         type: "input",
         name: "userName",
-        message: "What is your GitHub username?",
+        message: "Please enter your GitHub username.",
         validate: validateInput,
     },
 
-    // QUESTIONS section -- email address
+    // Email address
     {
         type: "input",
         name: "userEmail",
-        message: "What is your GitHub email address that contributors may contact?",
+        message: "Please enter your GitHub email address.",
         validate: function (value) {
             if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value)) {
                 return true;
             } else {
-                return "Not a valid email address. Please enter a valid email address.";
+                return "Invalid input! Please enter a valid email address.";
             }
         },
     },
 ];
 
-
-// function to generate the ReadMe here
+// function to create the README
 function writeToFile(fileName, data) {
     fs.writeFile(fileName, generateMarkdown(data), function (err) {
         if (err) {
@@ -138,7 +128,7 @@ function writeToFile(fileName, data) {
 }
 
 
-// function to initalize the beginning of the questions 
+// function to start questions 
 function init() {
     inquirer.prompt(questions).then((data) => {
         console.log(JSON.stringify(data, null, " "));
@@ -146,6 +136,4 @@ function init() {
         writeToFile("./example/README.md", data);
     });
 }
-
-// call the function to initalize the beginning of the questions 
 init();
