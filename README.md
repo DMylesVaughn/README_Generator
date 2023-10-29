@@ -33,11 +33,12 @@ Download the source code and functionality as you desire.
 Clone the code to your directory.  Ensure you have node.js insatlled along with inquirer.  Run the code from the index.js location from your terminal
 
 # ScreenShots
-* ![Preview](./images/Preview.png)
-* ![Terminal Screenshot](./images/TerminalScreenshot.png)
+* ![Preview](Develop/images/Preview.png)
+* ![Terminal Screenshot](Develop/images/TerminalScreenshot.png)
 
 # Code
 * https://github.com/DMylesVaughn/README_Generator
+* https://dmylesvaughn.github.io/README_Generator/
 
 # Contact Information 
 * GitHub Username: DMylesVaughn
